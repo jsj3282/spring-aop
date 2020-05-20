@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	
+	<bean id="common" class="com.care.controller.CommonClass"/>
+ <!--  
+	<aop:config>
+		<aop:aspect id="comService" ref="common">
+			<aop:pointcut id="comSerImpl" expression="within(com.care.controller.CoreClass)"/>  어느 시점에 commonClass를 실행시킬까? : CoreClass가 실행되면
+			<aop:around pointcut-ref="comSerImpl" method="commonAop"/> around : 전과 후에 이 메소드(commonAop)가 가지고 있는 걸 실행해주세요 
+		</aop:aspect>
+	</aop:config-->
+	
+	<aop:config>
+		<aop:aspect id="comService" ref="common">
+			<aop:pointcut id="comSerImpl" expression="within(com.care.controller.CoreClass)"/><!-- 어느 시점에 commonClass를 실행시킬까? : CoreClass가 실행되면-->
+			<aop:before pointcut-ref="comSerImpl" method="beforeAdvice"/><!-- around : 전과 후에 이 메소드(commonAop)가 가지고 있는 걸 실행해주세요 -->
+		</aop:aspect>
+	</aop:config>
+	<bean id="core" class="com.care.controller.CoreClass"/>
+</beans>
